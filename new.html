@@ -1,0 +1,838 @@
+<html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alamz - Professional AI Assistant</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Montserrat:wght@700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <a href="#/" class="logo">
+          <i class="fas fa-brain"></i>
+          <span>Alamz</span>
+        </a>
+        <!-- Desktop Navigation -->
+        <ul class="nav-links desktop-nav">
+          <li><a href="#/app" class="nav-link" data-page="app">Chat</a></li>
+          <li><a href="#/dashboard" class="nav-link" data-page="dashboard">Dashboard</a></li>
+          <li><a href="#/pricing" class="nav-link" data-page="pricing">Pricing</a></li>
+          <li><a href="#/about" class="nav-link" data-page="about">About</a></li>
+          <li><a href="#/profile" class="nav-link" data-page="profile">Profile</a></li>
+        </ul>
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu" aria-expanded="false">
+          <span class="hamburger"></span>
+        </button>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+          <ul class="nav-links">
+            <li><a href="#/app" class="nav-link" data-page="app">Chat</a></li>
+            <li><a href="#/dashboard" class="nav-link" data-page="dashboard">Dashboard</a></li>
+            <li><a href="#/pricing" class="nav-link" data-page="pricing">Pricing</a></li>
+            <li><a href="#/about" class="nav-link" data-page="about">About</a></li>
+            <li><a href="#/profile" class="nav-link" data-page="profile">Profile</a></li>
+          </ul>
+          <div class="nav-buttons">
+            <button class="theme-toggle" id="theme-toggle-mobile">
+              <i class="fas fa-moon"></i>
+            </button>
+            <button class="btn btn-outline" id="logout-btn-mobile">Logout</button>
+          </div>
+        </div>
+        <div class="nav-buttons desktop-only">
+          <button class="theme-toggle" id="theme-toggle">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="btn btn-primary" id="logout-btn">Logout</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="overlay" id="overlay"></div>
+  <!-- Toast notifications -->
+  <div class="toast" id="toast"></div>
+  
+  <!-- Speech Recognition Indicator -->
+  <div class="recognition-indicator" id="recognition-indicator">
+    <i class="fas fa-microphone"></i> Listening... Speak now
+  </div>
+  
+  <!-- Page Content -->
+  <main>
+    <!-- Home Page -->
+    <section id="home" class="page active">
+      <div class="container">
+        <div class="hero">
+          <h1>Alamz AI Assistant</h1>
+          <p>Professional-grade artificial intelligence that understands your needs. Powered by cutting-edge technology to enhance productivity, creativity, and decision-making.</p>
+          <div class="hero-buttons">
+            <a href="#/auth/register" class="btn btn-primary pulse">Get Started Free</a>
+            <a href="#/app" class="btn btn-outline">Try Live Demo</a>
+          </div>
+        </div>
+        <div class="features">
+          <div class="feature-card">
+            <i class="fas fa-comments"></i>
+            <h3>Natural Conversations</h3>
+            <p>Engage in human-like conversations with our advanced language model that understands context and nuance.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-file-upload"></i>
+            <h3>Document Analysis</h3>
+            <p>Upload PDFs, Word documents, images and more for AI to summarize, extract insights, and answer questions.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-robot"></i>
+            <h3>Multiple Personalities</h3>
+            <p>Choose from specialized AI assistants tailored for coding, writing, research, or casual conversation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- App Page -->
+    <section id="app" class="page">
+      <div class="container">
+        <div class="app-container">
+          <div class="sidebar" id="sidebar">
+            <div class="personality-selector">
+              <h3>AI Personality</h3>
+              <select id="ai-personality" class="form-select">
+                <option value="default">Default Assistant</option>
+                <option value="coder">Programming Expert</option>
+                <option value="writer">Creative Writer</option>
+                <option value="researcher">Academic Researcher</option>
+                <option value="casual">Casual Friend</option>
+              </select>
+            </div>
+            <div class="theme-selector">
+              <h3>Theme</h3>
+              <div class="theme-options">
+                <button class="btn btn-outline theme-option" data-theme="light" aria-label="Light theme">
+                  <i class="fas fa-sun"></i> Light
+                </button>
+                <button class="btn btn-outline theme-option" data-theme="dark" aria-label="Dark theme">
+                  <i class="fas fa-moon"></i> Dark
+                </button>
+              </div>
+            </div>
+            <div class="prompt-templates" id="prompt-templates">
+              <h3>Quick Actions</h3>
+              <div class="template-buttons">
+                <button class="btn btn-outline template-btn">Summarize doc</button>
+                <button class="btn btn-outline template-btn">Explain concept</button>
+                <button class="btn btn-outline template-btn">Generate ideas</button>
+                <button class="btn btn-outline template-btn">Fix code</button>
+              </div>
+            </div>
+            <button class="btn btn-primary" id="clear-chat-btn" style="width: 100%; margin-top: 1rem;">
+              <i class="fas fa-trash"></i> Clear Chat History
+            </button>
+          </div>
+          <div class="chat-container">
+            <div class="chat-header">
+              <h3><i class="fas fa-comments"></i> Alamz AI Assistant</h3>
+              <button class="chat-settings-btn" id="settings-btn" aria-label="Settings">
+                <i class="fas fa-cog"></i>
+              </button>
+            </div>
+            
+            <div class="chat-messages" id="chat-messages">
+              <div class="message ai-message">
+                <p>Hello! I'm Alamz, your AI assistant. How can I help you today? You can ask me questions, upload documents, or choose a specialized mode from settings.</p>
+                <button class="tts-button" aria-label="Listen to message">
+                  <i class="fas fa-volume-up"></i>
+                </button>
+              </div>
+            </div>
+            <div class="file-upload-preview" id="file-upload-preview">
+              <i class="fas fa-file"></i>
+              <span id="file-name">document.pdf</span>
+              <span class="status-indicator status-online"></span> Uploaded
+            </div>
+            <div class="chat-input">
+              <div class="upload-btn" id="upload-btn" aria-label="Upload options">
+                <i class="fas fa-paperclip"></i>
+                <div class="upload-options" id="upload-options">
+                  <div class="upload-option" id="upload-file">
+                    <i class="fas fa-file"></i>
+                    <span>Upload File</span>
+                    <input type="file" id="file-input" class="file-input" accept=".pdf,.doc,.docx,.txt">
+                  </div>
+                  <div class="upload-option" id="upload-image">
+                    <i class="fas fa-image"></i>
+                    <span>Upload Image</span>
+                    <input type="file" id="image-input" class="file-input" accept="image/*">
+                  </div>
+                  <div class="upload-option" id="take-photo">
+                    <i class="fas fa-camera"></i>
+                    <span>Take Photo</span>
+                    <input type="file" id="camera-input" class="file-input" accept="image/*" capture="camera">
+                  </div>
+                </div>
+              </div>
+              <textarea id="user-input" placeholder="Type your message here..." aria-label="Message input"></textarea>
+              <button class="stt-button" id="stt-button" aria-label="Speech to text">
+                <i class="fas fa-microphone"></i>
+              </button>
+              <button class="btn btn-primary" id="send-btn" aria-label="Send message"><i class="fas fa-paper-plane"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Login Page -->
+    <section id="auth-login" class="page">
+      <div class="container">
+        <div class="auth-container">
+          <button class="back-button" id="login-back-btn">
+            <i class="fas fa-arrow-left"></i> Back
+          </button>
+          <div class="auth-header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to your account to continue</p>
+          </div>
+          <div class="social-login">
+            <button class="social-btn">
+              <i class="fab fa-google"></i> Google
+            </button>
+            <button class="social-btn">
+              <i class="fab fa-github"></i> GitHub
+            </button>
+            <button class="social-btn">
+              <i class="fab fa-microsoft"></i> Microsoft
+            </button>
+          </div>
+          <div class="divider" style="text-align: center; margin: 1rem 0; color: var(--gray);">
+            <span>or</span>
+          </div>
+          <form class="auth-form" id="login-form">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="you@example.com" required="">
+              <div class="form-error" id="email-error">Please enter a valid email</div>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" placeholder="••••••••" required="">
+              <div class="form-error" id="password-error">Password must be at least 8 characters</div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;" id="login-btn">
+              <span id="login-text">Sign In</span>
+              <span id="login-spinner" class="loading" style="display: none;"></span>
+            </button>
+          </form>
+          <div class="auth-footer">
+            <p>Don't have an account? <a href="#/auth/register">Sign up</a></p>
+            <p><a href="#">Forgot your password?</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Register Page - Updated with Social Login -->
+    <section id="auth-register" class="page">
+      <div class="container">
+        <div class="auth-container">
+          <button class="back-button" id="register-back-btn">
+            <i class="fas fa-arrow-left"></i> Back
+          </button>
+          <div class="auth-header">
+            <h1>Create Account</h1>
+            <p>Get started with your free account</p>
+          </div>
+          <div class="social-login">
+            <button class="social-btn">
+              <i class="fab fa-google"></i> Google
+            </button>
+            <button class="social-btn">
+              <i class="fab fa-github"></i> GitHub
+            </button>
+            <button class="social-btn">
+              <i class="fab fa-microsoft"></i> Microsoft
+            </button>
+          </div>
+          <div class="divider" style="text-align: center; margin: 1rem 0; color: var(--gray);">
+            <span>or</span>
+          </div>
+          <form class="auth-form" id="register-form">
+            <div class="form-group">
+              <label for="fullname">Full Name</label>
+              <input type="text" id="fullname" placeholder="John Doe" required="">
+              <div class="form-error" id="name-error">Please enter your name</div>
+            </div>
+            <div class="form-group">
+              <label for="reg-email">Email Address</label>
+              <input type="email" id="reg-email" placeholder="you@example.com" required="">
+              <div class="form-error" id="reg-email-error">Please enter a valid email</div>
+            </div>
+            <div class="form-group">
+              <label for="reg-password">Password</label>
+              <input type="password" id="reg-password" placeholder="••••••••" required="">
+              <div class="form-error" id="reg-password-error">Password must be at least 8 characters</div>
+            </div>
+            <div class="form-group">
+              <label for="confirm-password">Confirm Password</label>
+              <input type="password" id="confirm-password" placeholder="••••••••" required="">
+              <div class="form-error" id="confirm-error">Passwords do not match</div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;" id="register-btn">
+              <span id="register-text">Create Account</span>
+              <span id="register-spinner" class="loading" style="display: none;"></span>
+            </button>
+          </form>
+          <div class="auth-footer">
+            <p>Already have an account? <a href="#/auth/login">Sign in</a></p>
+            <p>By signing up, you agree to our <a href="#/terms">Terms</a> and <a href="#/privacy">Privacy Policy</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Profile Page - Professional Redesign -->
+    <section id="profile" class="page">
+      <div class="container">
+        <div class="profile-container">
+          <div class="page-header">
+            <h1>Your Profile</h1>
+            <p>Manage your account information and preferences</p>
+          </div>
+          
+          <!-- Profile content based on login status -->
+          <div id="profile-content">
+            <!-- Content will be dynamically inserted here -->
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Dashboard Page - Updated with Usage Counters -->
+    <section id="dashboard" class="page">
+      <div class="container">
+        <div class="dashboard-grid">
+          <div class="dashboard-sidebar">
+            <ul class="dashboard-menu" id="dashboard-menu">
+              <li><a href="#" data-subpage="overview" class="active"><i class="fas fa-chart-line"></i> Overview</a></li>
+              <li><a href="#" data-subpage="history"><i class="fas fa-history"></i> History</a></li>
+              <li><a href="#" data-subpage="settings"><i class="fas fa-cog"></i> Settings</a></li>
+              <li><a href="#/profile"><i class="fas fa-user"></i> Profile</a></li>
+              <li><a href="#" data-subpage="billing"><i class="fas fa-dollar-sign"></i> Billing</a></li>
+            </ul>
+          </div>
+          <div class="dashboard-content">
+            <div class="dashboard-subpage active" id="overview">
+              <h2>Usage Overview</h2>
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <i class="fas fa-comment"></i>
+                  <div class="value" id="chat-count">0</div>
+                  <div class="label">Chats</div>
+                </div>
+                <div class="stat-card">
+                  <i class="fas fa-brain"></i>
+                  <div class="value" id="ai-capacity">0%</div>
+                  <div class="label">AI Capacity</div>
+                </div>
+                <div class="stat-card">
+                  <i class="fas fa-file"></i>
+                  <div class="value" id="file-count">0</div>
+                  <div class="label">Files</div>
+                </div>
+                <div class="stat-card">
+                  <i class="fas fa-clock"></i>
+                  <div class="value" id="time-saved">0h</div>
+                  <div class="label">Time Saved</div>
+                </div>
+              </div>
+              <h3>Recent Activity</h3>
+              <div class="history-list">
+                <div class="history-item">
+                  <div class="history-title">Summarized research paper on AI ethics</div>
+                  <div class="history-meta">Today, 11:23 AM</div>
+                </div>
+                <div class="history-item">
+                  <div class="history-title">Generated Python script for data analysis</div>
+                  <div class="history-meta">Yesterday, 3:45 PM</div>
+                </div>
+                <div class="history-item">
+                  <div class="history-title">Transcribed meeting audio</div>
+                  <div class="history-meta">Yesterday, 10:15 AM</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="dashboard-subpage" id="history">
+              <h2>Chat History</h2>
+              <div class="history-list">
+                <div class="history-item">
+                  <div class="history-title">How to implement authentication in Node.js?</div>
+                  <div class="history-meta">June 28, 2025 | 45 messages</div>
+                </div>
+                <div class="history-item">
+                  <div class="history-title">Market analysis for renewable energy startups</div>
+                  <div class="history-meta">June 27, 2025 | 32 messages</div>
+                </div>
+                <div class="history-item">
+                  <div class="history-title">Python script for data visualization</div>
+                  <div class="history-meta">June 26, 2025 | 28 messages</div>
+                </div>
+                <div class="history-item">
+                  <div class="history-title">Resume review and optimization</div>
+                  <div class="history-meta">June 25, 2025 | 18 messages</div>
+                </div>
+                <div class="history-item">
+                  <div class="history-title">Business plan outline for tech startup</div>
+                  <div class="history-meta">June 24, 2025 | 56 messages</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="dashboard-subpage" id="settings">
+              <h2>AI Settings</h2>
+              <div class="settings-section">
+                <h3><i class="fas fa-volume-up"></i> Voice Preferences</h3>
+                <p>Choose the voice for text-to-speech functionality</p>
+                <div class="voice-options">
+                  <div class="voice-option" data-voice="alloy">
+                    <i class="fas fa-user"></i>
+                    <div>
+                      <strong>Alloy</strong>
+                      <p>Standard male voice</p>
+                    </div>
+                  </div>
+                  <div class="voice-option selected" data-voice="echo">
+                    <i class="fas fa-user"></i>
+                    <div>
+                      <strong>Echo</strong>
+                      <p>Deep male voice</p>
+                    </div>
+                  </div>
+                  <div class="voice-option" data-voice="fable">
+                    <i class="fas fa-user"></i>
+                    <div>
+                      <strong>Fable</strong>
+                      <p>Female voice with warmth</p>
+                    </div>
+                  </div>
+                  <div class="voice-option" data-voice="nova">
+                    <i class="fas fa-user"></i>
+                    <div>
+                      <strong>Nova</strong>
+                      <p>Bright female voice</p>
+                    </div>
+                  </div>
+                  <div class="voice-option" data-voice="shimmer">
+                    <i class="fas fa-user"></i>
+                    <div>
+                      <strong>Shimmer</strong>
+                      <p>Soft female voice</p>
+                    </div>
+                  </div>
+                  <div class="voice-option" data-voice="onyx">
+                    <i class="fas fa-user"></i>
+                    <div>
+                      <strong>Onyx</strong>
+                      <p>Rich male voice</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="settings-section">
+                <h3><i class="fas fa-robot"></i> AI Personality</h3>
+                <p>Customize how your AI assistant behaves</p>
+                <div class="form-group">
+                  <label for="ai-tone">Response Tone</label>
+                  <select id="ai-tone" class="form-select">
+                    <option value="professional">Professional</option>
+                    <option value="friendly">Friendly</option>
+                    <option value="technical">Technical</option>
+                    <option value="concise">Concise</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="ai-length">Response Length</label>
+                  <select id="ai-length" class="form-select">
+                    <option value="short">Short</option>
+                    <option value="medium" selected="">Medium</option>
+                    <option value="detailed">Detailed</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="settings-section">
+                <h3><i class="fas fa-bell"></i> Notification Preferences</h3>
+                <div class="form-group">
+                  <label class="switch">
+                    <input type="checkbox" checked="">
+                    <span class="slider round"></span>
+                  </label>
+                  <span>Email notifications</span>
+                </div>
+                <div class="form-group">
+                  <label class="switch">
+                    <input type="checkbox" checked="">
+                    <span class="slider round"></span>
+                  </label>
+                  <span>Push notifications</span>
+                </div>
+                <div class="form-group">
+                  <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                  <span>Sound alerts</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="dashboard-subpage" id="billing">
+              <h2>Billing Information</h2>
+              <p>Manage your subscription and payment methods</p>
+              
+              <div class="settings-section">
+                <h3><i class="fas fa-credit-card"></i> Payment Methods</h3>
+                <div class="payment-methods">
+                  <div class="payment-card">
+                    <div class="default-badge">Default</div>
+                    <h4>Visa ending in 4242</h4>
+                    <p>Expires 12/2026</p>
+                    <button class="btn btn-outline" style="margin-top: 1rem;">Edit</button>
+                  </div>
+                  <div class="payment-card">
+                    <h4>Mastercard ending in 5689</h4>
+                    <p>Expires 08/2025</p>
+                    <button class="btn btn-outline" style="margin-top: 1rem;">Edit</button>
+                  </div>
+                </div>
+                <button class="btn btn-outline" style="margin-top: 1rem;"><i class="fas fa-plus"></i> Add Payment Method</button>
+              </div>
+              
+              <div class="settings-section">
+                <h3><i class="fas fa-receipt"></i> Billing History</h3>
+                <table class="billing-history">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Description</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Jun 28, 2025</td>
+                      <td>Pro Plan Subscription</td>
+                      <td>$20.00</td>
+                      <td><span class="status-indicator status-online"></span> Paid</td>
+                    </tr>
+                    <tr>
+                      <td>May 28, 2025</td>
+                      <td>Pro Plan Subscription</td>
+                      <td>$20.00</td>
+                      <td><span class="status-indicator status-online"></span> Paid</td>
+                    </tr>
+                    <tr>
+                      <td>Apr 28, 2025</td>
+                      <td>Pro Plan Subscription</td>
+                      <td>$20.00</td>
+                      <td><span class="status-indicator status-online"></span> Paid</td>
+                    </tr>
+                    <tr>
+                      <td>Mar 28, 2025</td>
+                      <td>Pro Plan Subscription</td>
+                      <td>$20.00</td>
+                      <td><span class="status-indicator status-online"></span> Paid</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+              <div class="settings-section">
+                <h3><i class="fas fa-gem"></i> Subscription Plan</h3>
+                <div class="plan-card" style="max-width: 400px;">
+                  <div class="plan-header">
+                    <div class="plan-name">Pro</div>
+                    <div class="plan-price">$20 <span>/month</span></div>
+                    <p>For professionals and power users</p>
+                  </div>
+                  <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> 1000 messages per month</li>
+                    <li><i class="fas fa-check"></i> Advanced AI capabilities</li>
+                    <li><i class="fas fa-check"></i> Large file uploads (up to 100MB)</li>
+                    <li><i class="fas fa-check"></i> Faster response speed</li>
+                    <li><i class="fas fa-check"></i> All AI personalities</li>
+                    <li><i class="fas fa-check"></i> Priority support</li>
+                  </ul>
+                  <button class="btn btn-outline" style="margin-top: 1rem;">Change Plan</button>
+                  <button class="btn btn-danger" style="background: var(--danger); color: white; margin-top: 0.5rem;">Cancel Subscription</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- About Page -->
+    <section id="about" class="page">
+      <div class="container">
+        <div class="page-header">
+          <h1>About Alamz</h1>
+          <p>Learn about our mission and the creator behind this innovative AI assistant</p>
+        </div>
+        <div class="about-content">
+          <div class="about-section">
+            <h2>Our Mission</h2>
+            <p>At Alamz, our mission is to democratize access to artificial intelligence, making powerful AI tools available to everyone regardless of technical expertise. We believe that AI should be an empowering tool that enhances human creativity and productivity.</p>
+          </div>
+          <div class="about-section">
+            <h2>Our Technology</h2>
+            <p>We leverage state-of-the-art large language models combined with proprietary enhancements to deliver accurate, context-aware responses. Our system incorporates memory and context awareness to provide coherent, multi-turn conversations that feel natural and intuitive.</p>
+          </div>
+          <div class="about-section">
+            <h2>The Creator</h2>
+            <div style="text-align: center; margin: 2rem 0;">
+              <div style="width: 120px; height: 120px; border-radius: 50%; background: var(--gradient); margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;">HA</div>
+              <h3 style="margin-top: 1.2rem;">Habeeb Alamutu</h3>
+              <p style="color: var(--primary); font-weight: 500;">Founder &amp; Lead Developer</p>
+              <p style="max-width: 600px; margin: 1rem auto; font-size: 0.95rem;">At just 16 years old, Habeeb is a self-taught developer with a passion for artificial intelligence. Alamz is his vision to create accessible AI tools that empower individuals and businesses alike.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Pricing Page - Enhanced with Animations -->
+    <section id="pricing" class="page">
+      <div class="container">
+        <div class="page-header">
+          <h1>Pricing Plans</h1>
+          <p>Choose the plan that works best for you. All plans include core features.</p>
+        </div>
+        <div class="pricing-plans">
+          <div class="plan-card">
+            <div class="plan-header">
+              <div class="plan-name">Free</div>
+              <div class="plan-price">$0 <span>/month</span></div>
+              <p>For individuals getting started</p>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check"></i> 50 messages per month</li>
+              <li><i class="fas fa-check"></i> Basic AI capabilities</li>
+              <li><i class="fas fa-check"></i> File uploads (up to 5MB)</li>
+              <li><i class="fas fa-check"></i> Standard response speed</li>
+              <li><i class="fas fa-times"></i> <span>Advanced AI personalities</span></li>
+              <li><i class="fas fa-times"></i> <span>Priority support</span></li>
+            </ul>
+            <button class="btn btn-outline">Get Started</button>
+          </div>
+          
+          <div class="plan-card popular">
+            <div class="popular-badge">MOST POPULAR</div>
+            <div class="plan-header">
+              <div class="plan-name">Pro</div>
+              <div class="plan-price">$20 <span>/month</span></div>
+              <p>For professionals and power users</p>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check"></i> 1000 messages per month</li>
+              <li><i class="fas fa-check"></i> Advanced AI capabilities</li>
+              <li><i class="fas fa-check"></i> Large file uploads (up to 100MB)</li>
+              <li><i class="fas fa-check"></i> Faster response speed</li>
+              <li><i class="fas fa-check"></i> All AI personalities</li>
+              <li><i class="fas fa-check"></i> Priority support</li>
+            </ul>
+            <button class="btn btn-primary">Get Started</button>
+          </div>
+          
+          <div class="plan-card">
+            <div class="plan-header">
+              <div class="plan-name">Enterprise</div>
+              <div class="plan-price">Custom</div>
+              <p>For teams and organizations</p>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check"></i> Unlimited messages</li>
+              <li><i class="fas fa-check"></i> Premium AI capabilities</li>
+              <li><i class="fas fa-check"></i> Large file uploads (up to 1GB)</li>
+              <li><i class="fas fa-check"></i> Fastest response speed</li>
+              <li><i class="fas fa-check"></i> Custom AI personalities</li>
+              <li><i class="fas fa-check"></i> Dedicated support</li>
+            </ul>
+            <button class="btn btn-outline">Contact Sales</button>
+          </div>
+        </div>
+        
+        <div style="margin-top: 3rem; background: var(--lighter); border-radius: var(--border-radius); padding: 2rem; box-shadow: var(--shadow);">
+          <h2 style="text-align: center; margin-bottom: 1.5rem;">Frequently Asked Questions</h2>
+          <div class="faq-grid">
+            <div class="faq-item">
+              <h3><i class="fas fa-question-circle"></i> Can I switch plans later?</h3>
+              <p>Yes, you can upgrade or downgrade your plan at any time. Your billing will be prorated based on your current usage.</p>
+            </div>
+            <div class="faq-item">
+              <h3><i class="fas fa-question-circle"></i> Do you offer discounts for students?</h3>
+              <p>Yes, we offer a 50% discount for verified students. Contact our support team with your student ID for more information.</p>
+            </div>
+            <div class="faq-item">
+              <h3><i class="fas fa-question-circle"></i> Is there a free trial?</h3>
+              <p>All paid plans come with a 14-day free trial. No credit card required to start your trial.</p>
+            </div>
+            <div class="faq-item">
+              <h3><i class="fas fa-question-circle"></i> How is billing handled?</h3>
+              <p>We bill monthly on the date you signed up. You can cancel at any time with no cancellation fees.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Terms Page -->
+    <section id="terms" class="page">
+      <div class="container">
+        <div class="policy-container">
+          <button class="back-button" id="terms-back-btn">
+            <i class="fas fa-arrow-left"></i> Back
+          </button>
+          <div class="page-header">
+            <h1>Terms of Service</h1>
+            <p>Last updated: June 28, 2025</p>
+          </div>
+          
+          <div class="policy-section">
+            <h2>1. Acceptance of Terms</h2>
+            <p>By accessing or using the Alamz AI Assistant service ("Service"), you agree to be bound by these Terms of Service ("Terms"). If you disagree with any part of the terms, you may not access the Service.</p>
+          </div>
+          
+          <div class="policy-section">
+            <h2>2. Description of Service</h2>
+            <p>Alamz AI Assistant provides artificial intelligence-powered conversation, content generation, and document analysis services through our website, applications, and APIs.</p>
+          </div>
+          
+          <div class="policy-section">
+            <h2>3. User Responsibilities</h2>
+            <p>You agree not to use the Service for any illegal or unauthorized purpose. You must not transmit any worms, viruses or any code of a destructive nature.</p>
+          </div>
+          
+          <div class="policy-section">
+            <h2>4. Intellectual Property</h2>
+            <p>The Service and its original content, features, and functionality are and will remain the exclusive property of Alamz AI and its licensors.</p>
+          </div>
+          
+          <div class="policy-section">
+            <h2>5. Termination</h2>
+            <p>We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Privacy Policy Page -->
+    <section id="privacy" class="page">
+      <div class="container">
+        <div class="policy-container">
+          <button class="back-button" id="privacy-back-btn">
+            <i class="fas fa-arrow-left"></i> Back
+          </button>
+          <div class="page-header">
+            <h1>Privacy Policy</h1>
+            <p>Last updated: June 28, 2025</p>
+          </div>
+          
+          <div class="policy-section">
+            <h2>1. Information We Collect</h2>
+            <p>We collect information that you provide directly to us, such as when you create an account, use our services, or communicate with us. This may include:</p>
+            <ul>
+              <li>Personal identification information (Name, email address, etc.)</li>
+              <li>Content you input into our AI systems</li>
+              <li>Uploaded files and documents</li>
+              <li>Usage data and preferences</li>
+            </ul>
+          </div>
+          
+          <div class="policy-section">
+            <h2>2. How We Use Your Information</h2>
+            <p>We use the information we collect in various ways, including to:</p>
+            <ul>
+              <li>Provide, operate, and maintain our services</li>
+              <li>Improve, personalize, and expand our services</li>
+              <li>Understand and analyze how you use our services</li>
+              <li>Develop new products, services, features, and functionality</li>
+              <li>Communicate with you for customer service and updates</li>
+            </ul>
+          </div>
+          
+          <div class="policy-section">
+            <h2>3. Data Security</h2>
+            <p>We implement appropriate technical and organizational measures to protect your personal information against accidental or unlawful destruction, loss, alteration, unauthorized disclosure or access.</p>
+          </div>
+          
+          <div class="policy-section">
+            <h2>4. Data Retention</h2>
+            <p>We retain your personal information only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations.</p>
+          </div>
+          
+          <div class="policy-section">
+            <h2>5. Your Data Rights</h2>
+            <p>You have the right to access, correct, or delete your personal information. You can also object to processing of your personal information, ask us to restrict processing, or request portability of your personal information.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- Footer - Hidden in specific pages -->
+  <footer id="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3>Alamz AI</h3>
+          <p>Your intelligent companion for productivity, creativity, and knowledge.</p>
+          <div class="social-icons" style="margin-top: 1rem; display: flex; gap: 1rem;">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Product</h3>
+          <ul class="footer-links">
+            <li><a href="#/app">AI Assistant</a></li>
+            <li><a href="#/pricing">Pricing</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Integrations</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">API Reference</a></li>
+            <li><a href="#">Tutorials</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Company</h3>
+          <ul class="footer-links">
+            <li><a href="#/about">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#/terms">Terms</a></li>
+            <li><a href="#/privacy">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Alamz AI. Created by Habeeb Alamutu. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body></html>
